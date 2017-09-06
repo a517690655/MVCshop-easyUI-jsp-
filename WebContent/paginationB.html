@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分页</title>
+    <link href="pagination/mricode.pagination.css" rel="stylesheet" />
+    <script src="pagination/jquery-2.1.4.min.js"></script>
+    <script src="pagination/mricode.pagination.js"></script>
+    <script type="text/javascript">
+/* 		$(function(){
+			$("#pagination").pagination({
+			    pageSize: 5,
+			    total: 100,
+			    firstBtnText:'首页',
+			    lastBtnText:'尾页',
+			    prevBtnText:'上一页',
+			    nextBtnText:'下一页',
+			    showInfo:true,
+			    pageSizeItems:[10,20,30],
+			    remote: {
+			        url: 'www.google.com/search'
+			        pageParams: function(data){
+			            return {
+			                index:data.pageIndex,
+			                size:data.pageSize
+			            };
+			        }
+			    }
+			});
+		}) */
+		$(function(){
+			$('#pagination').pagination({
+				  pageSize: 5,
+				  pageIndex:1,
+				  firstBtnText:'首页',
+				  lastBtnText:'尾页',
+				  prevBtnText:'上一页', 
+				  nextBtnText:'下一页',
+				  showInfo:true,
+				  noInfoText:'没有数据',
+				  showJump:true,
+				  showPageSizes:true,
+				  pageSizeItems:[10,20,30],
+ 				  remote:{
+					  	url:'/webproject/page.do',
+					  	totalName:'totalnum',
+					  	success:function(pageinfo){
+					  		$('#content').empty();
+					  		var ul="<ul>";
+					  		$(pageinfo.data).each(function(index,goods){
+					  			ul+="<li>" + goods.gtitle+"</li>";
+					  		}) 
+					  		ul+="</ul>";
+					  		$('#content').append(ul);
+					  	}
+				  } 
+			});
+		})
+    </script>
+</head>
+<body>
+<!--显示分页数据-->
+	<div id="content"></div>
+<!--导航-->	
+	<div id="pagination"></div>
+</body>
+</html>
